@@ -6,6 +6,8 @@ import letscode.sarafan.helpers.View;
 import letscode.sarafan.repo.MessageRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +32,7 @@ public class MessageController {
 
     @GetMapping
     @JsonView(View.Short.class)
-    public List<Message> list() {
+    public List<Message> list(@AuthenticationPrincipal OAuth2User user) {
         return messageRepository.findAll();
     }
 
